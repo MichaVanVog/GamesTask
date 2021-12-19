@@ -1,0 +1,61 @@
+﻿@model Games.Models.MovieGenreViewModel
+
+@{
+    ViewData["Title"] = "Видеоигры";
+}
+
+<h1>Видеоигры</h1>
+
+<p>
+    <a asp-action="Create">Добавить новую игру</a>
+</p>
+
+<form asp-controller="Games" asp-action="Index" method="get">
+    <p>
+        <select asp-for="GameGenre" asp-items="Model.Genres">
+            <option value="">все жанры</option>
+        </select>
+
+
+        Поиск по названию игры: <input type="text" name="SearchString" />
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Games[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games[0].DevelopersStudio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Games[0].Genre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Games)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DevelopersStudio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Детализация</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
